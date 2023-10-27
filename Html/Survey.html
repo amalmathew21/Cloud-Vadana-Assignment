@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Form</title>
+    <link rel="stylesheet" type="text/css" href="survey.css">
+</head>
+<body>
+    <div id="outer-container1">
+        <h1 align="center">Survey Collection</h1>
+    
+    <div id="outer-container2">
+        
+        <form id="survey-form">
+            <div class="input-group">
+                <label for="first-name">First Name:</label>
+                <input type="text" id="first-name" required>
+            </div>
+
+            <div class="input-group">
+                <label for="last-name">Last Name:</label>
+                <input type="text" id="last-name" required>
+            </div>
+
+            <div class="input-group">
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" required>
+            </div>
+
+            <div class="input-group">
+                <label for="country">Country:</label>
+                <select id="country" required>
+                    <option value="">Select</option>
+                    <option value="argentina">Argentina</option>
+                    <option value="australia">Australia</option>
+                    <option value="austria">Austria</option>
+                    <option value="belgium">Belgium</option>
+                    <option value="brazil">Brazil</option>
+                    <option value="canada">Canada</option>
+                    <option value="china">China</option>
+                    <option value="czech-republic">Czech Republic</option>
+                    <option value="denmark">Denmark</option>
+                    <option value="egypt">Egypt</option>
+                    <option value="finland">Finland</option>
+                    <option value="france">France</option>
+                    <option value="germany">Germany</option>
+                    <option value="greece">Greece</option>
+                    <option value="hungary">Hungary</option>
+                    <option value="india">India</option>
+                    <option value="ireland">Ireland</option>
+                    <option value="italy">Italy</option>
+                    <option value="japan">Japan</option>
+                    <option value="malaysia">Malaysia</option>
+                    <option value="mexico">Mexico</option>
+                    <option value="netherlands">Netherlands</option>
+                    <option value="new-zealand">New Zealand</option>
+                    <option value="norway">Norway</option>
+                    <option value="philippines">Philippines</option>
+                    <option value="poland">Poland</option>
+                    <option value="portugal">Portugal</option>
+                    <option value="russia">Russia</option>
+                    <option value="singapore">Singapore</option>
+                    <option value="south-africa">South Africa</option>
+                    <option value="south-korea">South Korea</option>
+                    <option value="spain">Spain</option>
+                    <option value="sweden">Sweden</option>
+                    <option value="switzerland">Switzerland</option>
+                    <option value="thailand">Thailand</option>
+                    <option value="turkey">Turkey</option>
+                    <option value="uk">UK</option>
+                    <option value="usa">USA</option>
+                </select>
+                
+            </div>
+
+            <div class="input-group  gender-input-group">
+                <label>Gender:</label>
+                <input type="radio" id="male" name="gender">
+                <label for="male">Male</label>
+                <input type="radio" id="female" name="gender">
+                <label for="female">Female</label>
+                <input type="radio" id="other" name="gender">
+                <label for="other">Other</label>
+            </div>
+
+            <div class="input-group">
+                <label for="profession">Profession:</label>
+                <input type="text" id="profession" required>
+            </div>
+
+            <div class="input-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" required>
+            </div>
+
+            <div class="input-group">
+                <label for="mobile">Mobile Number:</label>
+                <input type="tel" id="mobile" required>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" id="submit-button">Submit</button> 
+                <button type="reset" id="reset-button">Reset</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="popup" class="hidden">
+        <h2>Survey Submission</h2>
+        <div id="popup-content">
+           
+        </div>
+        <button id="close-popup">Close</button>
+    </div>
+</div>
+
+<script>
+    const form = document.getElementById('survey-form');
+    const resetButton = document.getElementById('reset-button');
+    const popup = document.getElementById('popup');
+    const popupContent = document.getElementById('popup-content');
+    const closePopup = document.getElementById('close-popup');
+    const submitButton = document.getElementById('submit-button');
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Validate the form
+        if (form.checkValidity()) {
+            // Display the selected values in the popup
+            const selectedValues = {
+                'First Name': document.getElementById('first-name').value,
+                'Last Name': document.getElementById('last-name').value,
+                'Date of Birth': document.getElementById('dob').value,
+                'Country': document.getElementById('country').value,
+                'Gender': document.querySelector('input[name="gender"]:checked').value || 'Not specified',
+                'Profession': document.getElementById('profession').value,
+                'Email': document.getElementById('email').value,
+                'Mobile Number': document.getElementById('mobile').value,
+            };
+
+            popupContent.innerHTML = '';
+            for (const label in selectedValues) {
+                const value = selectedValues[label];
+                const entry = document.createElement('p');
+                entry.innerHTML = `<strong>${label}:</strong> ${value}`;
+                popupContent.appendChild(entry);
+            }
+
+            popup.classList.remove('hidden');
+        }
+    });
+
+    resetButton.addEventListener('click', function() {
+        form.reset();
+    });
+
+    closePopup.addEventListener('click', function() {
+        popup.classList.add('hidden');
+        form.reset();
+    });
+</script>
+
+</body>
+</html>
